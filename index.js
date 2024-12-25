@@ -1,4 +1,6 @@
 
+
+
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
 const taskDisplay = document.getElementById("taskDisplay");
@@ -98,6 +100,37 @@ function addTaskToDOM(title, description, taskDate, completed = false) {
     taskDisplay.appendChild(task);
 }
 
+// Function to add a task
+function addTask() {
+    let title = titleInput.value.trim();
+    let description = descriptionInput.value.trim();
+    let caseUp = description.charAt(0).toUpperCase() + description.slice(1);
+
+    if (title === "" || description === "") {
+        alert("Please fill in all fields");
+    } else {
+        // Get the current time dynamically
+        let currentTime = new Date().toLocaleTimeString();
+        let taskDate = `${mydate} ${currentTime}`;
+
+        // Save to local storage
+        const tasks = getFromLocalStorage();
+        tasks.push({
+            title: title,
+            description: caseUp,
+            date: taskDate,
+            completed: false,
+        });
+        saveToLocalStorage(tasks);
+
+        // Add to DOM
+        addTaskToDOM(title, caseUp, taskDate);
+
+        titleInput.value = "";
+        descriptionInput.value = "";
+    }
+}
+
 // Function to save mode to local storage
 function saveModeToLocalStorage(mode) {
     localStorage.setItem("mode", mode);
@@ -146,3 +179,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Load tasks on page load
 document.addEventListener("DOMContentLoaded", displayTasks);
+

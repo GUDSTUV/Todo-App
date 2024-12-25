@@ -29,10 +29,6 @@ body{
     --taskbg-color: white;
 }
 
-.header #dark{
-
-
-}
 
 .Todo {
     display: grid;
