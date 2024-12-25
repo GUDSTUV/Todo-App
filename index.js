@@ -98,50 +98,51 @@ function addTaskToDOM(title, description, taskDate, completed = false) {
     taskDisplay.appendChild(task);
 }
 
-// Function to add a task
-function addTask() {
-    let title = titleInput.value.trim();
-    let description = descriptionInput.value.trim();
-    let caseUp = description.charAt(0).toUpperCase() + description.slice(1);
+// Function to save mode to local storage
+function saveModeToLocalStorage(mode) {
+    localStorage.setItem("mode", mode);
+}
 
-    if (title === "" || description === "") {
-        alert("Please fill in all fields");
-    } else {
-        // Get the current time dynamically
-        let currentTime = new Date().toLocaleTimeString();
-        let taskDate = `${mydate} ${currentTime}`;
-
-        // Save to local storage
-        const tasks = getFromLocalStorage();
-        tasks.push({
-            title: title,
-            description: caseUp,
-            date: taskDate,
-            completed: false,
-        });
-        saveToLocalStorage(tasks);
-
-        // Add to DOM
-        addTaskToDOM(title, caseUp, taskDate);
-
-        titleInput.value = "";
-        descriptionInput.value = "";
-    }
+// Function to get the current mode from local storage
+function getModeFromLocalStorage() {
+    return localStorage.getItem("mode");
 }
 
 // Dark mode toggle function
 function darkMode() {
-    document.body.classList.toggle("dark-mode");
-    if (sunMode.style.display === "block") {
-        sunMode.style.display = "none";
-        moonMode.style.display = "block";
-    } else {
+    const body = document.body;
+    body.classList.toggle("dark-mode");
+
+    // Check the current mode and save to local storage
+    if (body.classList.contains("dark-mode")) {
         sunMode.style.display = "block";
         moonMode.style.display = "none";
+        saveModeToLocalStorage("dark");
+    } else {
+        sunMode.style.display = "none";
+        moonMode.style.display = "block";
+        saveModeToLocalStorage("light");
     }
 }
 
-year.textContent = date.getFullYear();
+// Apply the saved mode on page load
+document.addEventListener("DOMContentLoaded", function () {
+    const savedMode = getModeFromLocalStorage();
+
+    if (savedMode === "dark") {
+        document.body.classList.add("dark-mode");
+        sunMode.style.display = "block";
+        moonMode.style.display = "none";
+    } else {
+        document.body.classList.remove("dark-mode");
+        sunMode.style.display = "none";
+        moonMode.style.display = "block";
+    }
+
+    // Display the current year
+    year.textContent = date.getFullYear();
+});
+
 
 // Load tasks on page load
 document.addEventListener("DOMContentLoaded", displayTasks);
