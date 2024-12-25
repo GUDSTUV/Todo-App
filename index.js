@@ -1,97 +1,3 @@
-// const titleInput = document.getElementById("title");
-// const descriptionInput = document.getElementById("description");
-// const taskDisplay = document.getElementById("taskDisplay");
-// const year = document.getElementById("year");
-// const dark = document.getElementById("dark")
-// const light = document.getElementById("light")
-// const sunMode = document.getElementById("sun")
-// const moonMode = document.getElementById("moon")
-// const date = new Date();
-// let mydate = date.toDateString();
-
-// function addTask() {
-//     let title = titleInput.value.trim();
-//     let description = descriptionInput.value.trim();
-//     let caseUp = description.charAt(0).toUpperCase() + description.slice(1)
-
-//     if (title === "" || description === "") {
-//         alert("Please fill in all fields");
-//     } else {
-//         // Get the current time dynamically
-//         let currentTime = new Date().toLocaleTimeString();
-      
-
-//         let task = document.createElement("div");
-//         task.classList.add("task");
-        
-
-//         let textContent = document.createElement("div")
-//         textContent.classList.add("texts")
-
-//         let titlePane = document.createElement("div");
-//         titlePane.classList.add("active");
-//         titlePane.textContent = title;
-
-//         let descriptionPane = document.createElement("div");
-//         descriptionPane.textContent = caseUp;
-
-        
-
-//         textContent.appendChild(titlePane)
-//         textContent.appendChild(descriptionPane)
-        
-
-//         let dates = document.createElement("div");
-//         dates.classList.add("dates");
-//         dates.textContent = mydate + " " + currentTime;
-
-//         let buttons = document.createElement("div");
-//         buttons.classList.add("buttons");
-
-//         let completeButton = document.createElement("div");
-//         completeButton.classList.add("complete");
-//         completeButton.textContent = "Complete";
-//         completeButton.onclick = function () {
-//             titlePane.classList.toggle("display");
-//             descriptionPane.classList.toggle("display");
-//         };
-
-//         let deleteButton = document.createElement("div");
-//         deleteButton.classList.add("delete");
-//         deleteButton.textContent = "Delete";
-//         deleteButton.onclick = function () {
-//             task.remove();
-//         };
-
-//         buttons.appendChild(completeButton);
-//         buttons.appendChild(deleteButton);
-
-//         task.appendChild(textContent);
-//         task.appendChild(dates);
-//         task.appendChild(buttons);
-
-//         taskDisplay.appendChild(task);
-
-//         titleInput.value = "";
-//         descriptionInput.value = "";
-//     }
-// }
-
-// year.textContent = date.getFullYear();
-
-// function darkMode() {
-//     let isDarkMode = document.body.classList.toggle("dark-mode");
-
-//     if (isDarkMode && (sunMode.style.display === "none")) {
-//         sunMode.style.display = "block"
-//         moonMode.style.display = "none"
-//     } else {
-//         sunMode.style.display = "none"
-//         moonMode.style.display = "block"
-//     }
-
-// }
-
 
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
@@ -223,51 +129,17 @@ function addTask() {
     }
 }
 
-// Function to save mode to local storage
-function saveModeToLocalStorage(mode) {
-    localStorage.setItem("mode", mode);
-}
-
-// Function to get the current mode from local storage
-function getModeFromLocalStorage() {
-    return localStorage.getItem("mode");
-}
-
 // Dark mode toggle function
 function darkMode() {
-    const body = document.body;
-    body.classList.toggle("dark-mode");
-
-    // Check the current mode and save to local storage
-    if (body.classList.contains("dark-mode")) {
+    document.body.classList.toggle("dark-mode");
+    if (sunMode.style.display === "block") {
         sunMode.style.display = "none";
         moonMode.style.display = "block";
-        saveModeToLocalStorage("dark");
     } else {
         sunMode.style.display = "block";
         moonMode.style.display = "none";
-        saveModeToLocalStorage("light");
     }
 }
-
-// Apply the saved mode on page load
-document.addEventListener("DOMContentLoaded", function () {
-    const savedMode = getModeFromLocalStorage();
-
-    if (savedMode === "dark") {
-        document.body.classList.add("dark-mode");
-        sunMode.style.display = "none";
-        moonMode.style.display = "block";
-    } else {
-        document.body.classList.remove("dark-mode");
-        sunMode.style.display = "block";
-        moonMode.style.display = "none";
-    }
-
-    // Display the current year
-    year.textContent = date.getFullYear();
-});
-
 
 year.textContent = date.getFullYear();
 
